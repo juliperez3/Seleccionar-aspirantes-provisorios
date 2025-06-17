@@ -106,7 +106,7 @@ export default function SelectionProcess() {
 
         {/* Main Content */}
         {processState === "input" && (
-          <Card className="w-full max-w-2xl mx-auto">
+          <Card className="w-full max-w-lg mx-auto">
             <CardHeader className="text-center">
               <div className="mx-auto w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4">
                 <Search className="w-6 h-6 text-blue-600" />
@@ -141,7 +141,7 @@ export default function SelectionProcess() {
                 </Button>
 
                 <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 space-y-3">
-                  <h4 className="text-blue-700 font-medium text-sm">Ejemplos para prueba:</h4>
+                  <h4 className="text-blue-700 font-bold text-sm">Ejemplos para prueba:</h4>
                   <ul className="space-y-2 text-sm">
                     <li className="flex items-start gap-2">
                       <span className="text-blue-600 mt-1">•</span>
@@ -168,7 +168,7 @@ export default function SelectionProcess() {
 
         {/* Executing Algorithm State */}
         {processState === "executing" && (
-          <Card className="w-full max-w-2xl mx-auto">
+          <Card className="w-full max-w-lg mx-auto">
             <CardContent className="py-12">
               <div className="text-center space-y-6">
                 <div className="mx-auto w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
@@ -189,7 +189,7 @@ export default function SelectionProcess() {
 
         {/* Error States */}
         {processState === "error" && (
-          <Card className="w-full max-w-2xl mx-auto">
+          <Card className="w-full max-w-lg mx-auto">
             <CardHeader className="text-center">
               <div className="mx-auto w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4">
                 <Search className="w-6 h-6 text-blue-600" />
@@ -239,7 +239,7 @@ export default function SelectionProcess() {
                 </div>
 
                 <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 space-y-3">
-                  <h4 className="text-blue-700 font-medium text-sm">Ejemplos para prueba:</h4>
+                  <h4 className="text-blue-700 font-bold text-sm">Ejemplos para prueba:</h4>
                   <ul className="space-y-2 text-sm">
                     <li className="flex items-start gap-2">
                       <span className="text-blue-600 mt-1">•</span>
@@ -267,7 +267,7 @@ export default function SelectionProcess() {
         {/* Success State */}
         {processState === "success" && result && (
           <div className="space-y-6">
-            <Card className="w-full max-w-2xl mx-auto border-green-200">
+            <Card className="w-full max-w-lg mx-auto border-green-200">
               <CardContent className="py-8">
                 <div className="text-center space-y-4">
                   <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
@@ -282,7 +282,7 @@ export default function SelectionProcess() {
             </Card>
 
             {/* Result Details */}
-            <Card className="w-full max-w-2xl mx-auto">
+            <Card className="w-full max-w-lg mx-auto">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <FileText className="w-5 h-5" />
@@ -290,7 +290,7 @@ export default function SelectionProcess() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label className="text-sm font-medium text-gray-500">Número de Proyecto</Label>
                     <div className="flex items-center gap-2">
@@ -300,18 +300,18 @@ export default function SelectionProcess() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label className="text-sm font-medium text-gray-500">Número de Proceso</Label>
-                    <div className="flex items-center gap-2">
-                      <Users className="w-4 h-4 text-gray-400" />
-                      <span className="font-mono text-sm">{result.numeroProceso}</span>
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
                     <Label className="text-sm font-medium text-gray-500">Fecha del Proceso</Label>
                     <div className="flex items-center gap-2">
                       <Calendar className="w-4 h-4 text-gray-400" />
                       <span className="text-sm">{result.fechaProceso}</span>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label className="text-sm font-medium text-gray-500">Número de Proceso</Label>
+                    <div className="flex items-center gap-2">
+                      <Users className="w-4 h-4 text-gray-400" />
+                      <span className="font-mono text-sm">{result.numeroProceso}</span>
                     </div>
                   </div>
 
@@ -328,7 +328,7 @@ export default function SelectionProcess() {
 
                 <Separator />
 
-                <div className="space-y-2">
+                <div className="space-y-6">
                   <Label className="text-sm font-medium text-gray-500">Estado del Proceso</Label>
                   <Badge variant={result.estado.includes("antes") ? "default" : "secondary"} className="text-xs">
                     {result.estado}
@@ -340,24 +340,15 @@ export default function SelectionProcess() {
                   </p>
                 </div>
 
-                <div className="pt-4 space-y-3">
+                <div className="pt-4">
                   <Button onClick={resetProcess} className="w-full">
                     Realizar Nueva Selección
-                  </Button>
-                  <Button variant="outline" className="w-full">
-                    Ver Resultados Detallados
                   </Button>
                 </div>
               </CardContent>
             </Card>
           </div>
         )}
-
-        {/* Footer */}
-        <div className="text-center text-sm text-gray-500 pt-8">
-          <p>Sistema de Gestión de Prácticas Profesionales v2.0</p>
-          <p>Responsable: Programa de Prácticas Profesionales</p>
-        </div>
       </div>
     </div>
   )
