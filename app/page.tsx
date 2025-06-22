@@ -54,6 +54,11 @@ export default function SelectionProcess() {
   // Efecto para simular el progreso del algoritmo
   useEffect(() => {
     if (processState === "executing") {
+      const totalDuration = 5000 // 5 seconds
+      const intervalTime = 50 // Update every 50ms
+      const totalSteps = totalDuration / intervalTime // 100 steps
+      const incrementPerStep = 100 / totalSteps // 1% per step
+
       const interval = setInterval(() => {
         setProgress((prev) => {
           if (prev >= 100) {
@@ -79,9 +84,11 @@ export default function SelectionProcess() {
             }, 500)
             return 100
           }
-          return prev + Math.random() * 15 + 5 // Incremento aleatorio entre 5-20%
+          // Incremento constante para completar en exactamente 5 segundos
+          const newProgress = prev + incrementPerStep
+          return Math.min(newProgress, 100) // Asegurar que no pase de 100
         })
-      }, 300)
+      }, intervalTime) // Actualizar cada 50ms
 
       return () => clearInterval(interval)
     }
@@ -175,12 +182,14 @@ export default function SelectionProcess() {
                   <Users className="w-8 h-8 text-blue-600" />
                 </div>
                 <div className="space-y-2">
-                  <h3 className="text-xl font-semibold">Ejecutando algoritmo de selección...</h3>
-                  <p className="text-gray-600">Procesando postulaciones y asignando estados</p>
+                  <h3 className="text-2xl font-semibold">Ejecutando algoritmo de selección...</h3>
+                  <p className="text-sm text-gray-600">Procesando postulaciones y asignando estados</p>
                 </div>
                 <div className="space-y-3">
                   <Progress value={progress} className="w-full h-3" />
-                  <p className="text-sm text-gray-500">{Math.round(progress)}% completado</p>
+                  <p className="text-sm">
+                    <span className="text-blue-600 font-medium">{Math.floor(progress)}% completado</span>
+                  </p>
                 </div>
               </div>
             </CardContent>
