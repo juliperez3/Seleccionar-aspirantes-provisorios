@@ -65,14 +65,50 @@ export default function SelectionProcess() {
             clearInterval(interval)
             // Completar el proceso
             setTimeout(() => {
-              const fechaCierre = "15/08/2025 18:00:00"
-              const fechaCierreDate = new Date("2025-08-15T18:00:00")
-              const fechaActual = new Date()
-              const isBeforeDeadline = fechaActual <= fechaCierreDate
+              let fechaCierre = "15/08/2025 18:00:00"
+              const now = new Date()
+              const fechaProceso =
+                now.toLocaleDateString("es-ES", {
+                  day: "2-digit",
+                  month: "2-digit",
+                  year: "numeric",
+                }) +
+                " " +
+                now.toLocaleTimeString("es-ES", {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  second: "2-digit",
+                })
+              let isBeforeDeadline = true
+
+              // Determinar el estado basado en el número de proyecto
+              if (numeroProyecto === "00002") {
+                isBeforeDeadline = false
+                // Si es después del cierre, la fecha de cierre debe ser 1 día anterior a la fecha actual
+                const oneDayBefore = new Date()
+                oneDayBefore.setDate(oneDayBefore.getDate() - 1)
+                fechaCierre =
+                  oneDayBefore.toLocaleDateString("es-ES", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric",
+                  }) + " 18:00:00"
+              } else {
+                // Si es antes del cierre (00001), la fecha de cierre debe ser 1 mes y 1 día mayor a la fecha actual
+                const oneMonthOneDayLater = new Date()
+                oneMonthOneDayLater.setMonth(oneMonthOneDayLater.getMonth() + 1)
+                oneMonthOneDayLater.setDate(oneMonthOneDayLater.getDate() + 1)
+                fechaCierre =
+                  oneMonthOneDayLater.toLocaleDateString("es-ES", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric",
+                  }) + " 18:00:00"
+              }
 
               const mockResult: SelectionResult = {
                 numeroProceso: Math.floor(Math.random() * 100) + 1,
-                fechaProceso: "15/07/2025 14:30:00", // Fecha fija del mes 07
+                fechaProceso: fechaProceso,
                 estado: isBeforeDeadline
                   ? "Simulado antes Finalizar Postulaciones"
                   : "Simulado despues Finalizar Postulaciones",
@@ -153,7 +189,15 @@ export default function SelectionProcess() {
                     <li className="flex items-start gap-2">
                       <span className="text-blue-600 mt-1">•</span>
                       <span className="text-blue-600">
-                        Ingrese cualquier número válido para continuar con el flujo normal.
+                        Ingrese "00001" para simular Proceso Selección simulado antes de la fecha de cierre de
+                        postulaciones.
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-600 mt-1">•</span>
+                      <span className="text-blue-600">
+                        Ingrese "00002" para simular Proceso Selección simulado después de la fecha de cierre de
+                        postulaciones.
                       </span>
                     </li>
                     <li className="flex items-start gap-2">
@@ -253,7 +297,15 @@ export default function SelectionProcess() {
                     <li className="flex items-start gap-2">
                       <span className="text-blue-600 mt-1">•</span>
                       <span className="text-blue-600">
-                        Ingrese cualquier número válido para continuar con el flujo normal.
+                        Ingrese "00001" para simular Proceso Selección simulado antes de la fecha de cierre de
+                        postulaciones.
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-600 mt-1">•</span>
+                      <span className="text-blue-600">
+                        Ingrese "00002" para simular Proceso Selección simulado después de la fecha de cierre de
+                        postulaciones.
                       </span>
                     </li>
                     <li className="flex items-start gap-2">
